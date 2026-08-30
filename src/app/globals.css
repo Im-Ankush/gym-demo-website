@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: var(--font-display), "Barlow Condensed", "Oswald", sans-serif;
+  --font-sans: var(--font-sans), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --color-bg-main: #09090b;
+  --color-bg-subtle: #0f0f13;
+  --color-surface-charcoal: #141419;
+  --color-surface-card: #18181f;
+  --color-surface-elevated: #22222b;
+  
+  --color-brand-red: #ff1e27;
+  --color-brand-red-hover: #e0151e;
+  --color-brand-red-dark: #800c11;
+  --color-brand-red-glow: rgba(255, 30, 39, 0.12);
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-medium: rgba(255, 255, 255, 0.15);
+  --color-border-strong: rgba(255, 255, 255, 0.28);
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+
+  --color-brand-whatsapp: #22c55e;
+  --color-brand-whatsapp-hover: #16a34a;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-main: #09090b;
+  --surface-charcoal: #141419;
+  --surface-card: #18181f;
+  --brand-red: #ff1e27;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --border-subtle: rgba(255, 255, 255, 0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Body Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  selection-background-color: #ff1e27;
+  selection-color: #ffffff;
+}
+
+::selection {
+  background-color: #ff1e27;
+  color: #ffffff;
+}
+
+/* Athletic Display Typography utility */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Subtle cinematic grid & noise overlay */
+.bg-grid-subtle {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+.athletic-clip {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+/* Custom Sleek Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
 }

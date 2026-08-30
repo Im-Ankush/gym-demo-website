@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#09090b"/>
+  <rect x="1" y="1" width="30" height="30" rx="5" fill="none" stroke="#ff1e27" stroke-width="1.5" opacity="0.4"/>
+  <!-- Bold athletic F monogram with red accent bar -->
+  <path d="M8 7h16v4.5H13.5v4.5h8.5v4.5H13.5V25H8V7z" fill="#ffffff"/>
+  <rect x="22" y="7" width="2" height="4.5" fill="#ff1e27"/>
+  <circle cx="23" cy="18.5" r="1.5" fill="#ff1e27"/>
+</svg>
