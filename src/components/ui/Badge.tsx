@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: "red" | "dark" | "outline" | "success";
+  variant?: "red" | "solid-red" | "dark" | "outline" | "success";
   size?: "sm" | "md";
   dot?: boolean;
   icon?: React.ReactNode;
@@ -22,6 +22,8 @@ export const Badge: React.FC<BadgeProps> = ({
 
   const variantStyles = {
     red: "bg-brand-red/15 text-brand-red border border-brand-red/30",
+    "solid-red":
+      "bg-brand-red text-white border border-brand-red shadow-lg shadow-brand-red/25",
     dark: "bg-surface-elevated text-text-primary border border-border-subtle",
     outline: "bg-transparent text-text-secondary border border-border-medium",
     success:
@@ -30,6 +32,7 @@ export const Badge: React.FC<BadgeProps> = ({
 
   const dotColors = {
     red: "bg-brand-red animate-pulse",
+    "solid-red": "bg-white animate-pulse",
     dark: "bg-text-secondary",
     outline: "bg-text-muted",
     success: "bg-brand-whatsapp animate-pulse",

@@ -51,8 +51,16 @@ export const Pricing: React.FC<PricingProps> = ({ config = siteConfig }) => {
               >
                 {/* Featured Badge Top Highlight */}
                 {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-                    <Badge variant={isFeatured ? "red" : "dark"} dot={isFeatured}>
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20">
+                    <Badge
+                      variant={isFeatured ? "solid-red" : "dark"}
+                      dot={isFeatured}
+                      className={
+                        isFeatured
+                          ? "px-3.5 py-1 text-xs font-black tracking-widest shadow-xl"
+                          : "px-2.5 py-1 text-xs"
+                      }
+                    >
                       {plan.badge}
                     </Badge>
                   </div>
