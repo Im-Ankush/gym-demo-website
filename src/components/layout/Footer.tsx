@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { Container } from "@/components/ui/Container";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { scrollToSection } from "@/lib/scroll";
 
 export interface FooterProps {
   config?: typeof siteConfig;
@@ -11,6 +14,16 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ config = siteConfig }) => {
   const currentYear = new Date().getFullYear();
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      scrollToSection(href);
+    }
+  };
 
   const renderSocialIcon = (platform: string) => {
     switch (platform) {
@@ -92,6 +105,7 @@ export const Footer: React.FC<FooterProps> = ({ config = siteConfig }) => {
                 <li key={item.label}>
                   <Link
                     href={item.href}
+                    onClick={(e) => handleLinkClick(e, item.href)}
                     className="hover:text-white transition-colors"
                   >
                     {item.label}
@@ -111,6 +125,7 @@ export const Footer: React.FC<FooterProps> = ({ config = siteConfig }) => {
                 <li key={item.label}>
                   <Link
                     href={item.href}
+                    onClick={(e) => handleLinkClick(e, item.href)}
                     className="hover:text-white transition-colors"
                   >
                     {item.label}
@@ -177,6 +192,7 @@ export const Footer: React.FC<FooterProps> = ({ config = siteConfig }) => {
               <Link
                 key={item.label}
                 href={item.href}
+                onClick={(e) => handleLinkClick(e, item.href)}
                 className="hover:text-text-secondary transition-colors"
               >
                 {item.label}

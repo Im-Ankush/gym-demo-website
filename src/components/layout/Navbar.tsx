@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { cn } from "@/lib/utils";
+import { scrollToSection } from "@/lib/scroll";
 
 export interface NavbarProps {
   brandName?: string;
@@ -64,17 +65,20 @@ export const Navbar: React.FC<NavbarProps> = ({
   // Graceful anchor scroll handler for current & future sections
   const handleNavClick = (
     e: React.MouseEvent<HTMLElement>,
-    href: string
+    href: string,
+    options?: { plan?: string }
   ) => {
     if (href.startsWith("#")) {
-      const targetId = href.substring(1);
-      const elem = document.getElementById(targetId);
-      if (elem) {
-        e.preventDefault();
-        elem.scrollIntoView({ behavior: "smooth" });
-      }
+      e.preventDefault();
+      setMobileMenuOpen(false);
+      scrollToSection(href, options);
+      // Double trigger on next frame after drawer unmounts/hides to guarantee exact scroll alignment
+      requestAnimationFrame(() => {
+        scrollToSection(href, options);
+      });
+    } else {
+      setMobileMenuOpen(false);
     }
-    setMobileMenuOpen(false);
   };
 
   return (

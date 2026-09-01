@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { ArrowRight, MessageSquare, ShieldCheck } from "lucide-react";
@@ -5,6 +7,7 @@ import { siteConfig } from "@/data/site-config";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { scrollToSection } from "@/lib/scroll";
 
 export interface FinalCTAProps {
   config?: typeof siteConfig;
@@ -73,6 +76,10 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({
               size="lg"
               className="h-13 sm:h-14 px-8 text-sm sm:text-base tracking-widest shadow-xl shadow-brand-red/20"
               rightIcon={<ArrowRight className="w-4 h-4" />}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(finalCta.primaryCta.href, { plan: "" });
+              }}
             >
               {finalCta.primaryCta.label}
             </Button>

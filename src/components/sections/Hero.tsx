@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { ArrowRight, MapPin, ShieldCheck, ChevronDown } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { scrollToSection } from "@/lib/scroll";
 
 export interface HeroProps {
   config?: typeof siteConfig;
@@ -91,6 +94,10 @@ export const Hero: React.FC<HeroProps> = ({ config = siteConfig }) => {
               size="lg"
               className="h-13 sm:h-14 px-8 text-sm sm:text-base tracking-widest shadow-xl shadow-brand-red/20"
               rightIcon={<ArrowRight className="w-4 h-4" />}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(hero.primaryCta.href, { plan: "" });
+              }}
             >
               {hero.primaryCta.label}
             </Button>
@@ -100,6 +107,10 @@ export const Hero: React.FC<HeroProps> = ({ config = siteConfig }) => {
               variant="secondary"
               size="lg"
               className="h-13 sm:h-14 px-8 text-sm sm:text-base tracking-widest"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(hero.secondaryCta.href);
+              }}
             >
               {hero.secondaryCta.label}
             </Button>

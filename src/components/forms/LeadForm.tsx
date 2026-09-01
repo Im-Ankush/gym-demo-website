@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CheckCircle2, AlertCircle, MessageSquare, RotateCcw, ArrowRight, Loader2, Dumbbell } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { Button } from "@/components/ui/Button";
@@ -9,6 +9,21 @@ export interface LeadFormProps {
   config?: typeof siteConfig;
   className?: string;
   defaultPlan?: string;
+}
+
+function normalizePlanValue(plan: string): string {
+  if (!plan) return "";
+  const lower = plan.toLowerCase();
+  if (lower.includes("quarter")) {
+    return "Quarterly (₹2499)";
+  }
+  if (lower.includes("year")) {
+    return "Yearly (₹7999)";
+  }
+  if (lower.includes("month")) {
+    return "Monthly (₹999)";
+  }
+  return plan;
 }
 
 export const LeadForm: React.FC<LeadFormProps> = ({
@@ -24,10 +39,28 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     email: "",
     goal: "",
     preferredContact: "WhatsApp",
-    selectedPlan: defaultPlan,
+    selectedPlan: normalizePlanValue(defaultPlan),
     message: "",
     _gotcha: "", // Honeypot spam trap
   });
+
+  useEffect(() => {
+    const handlePlanEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ plan?: string }>;
+      const rawPlan = customEvent.detail?.plan;
+      if (rawPlan !== undefined) {
+        setFormData((prev) => ({
+          ...prev,
+          selectedPlan: normalizePlanValue(rawPlan),
+        }));
+      }
+    };
+
+    window.addEventListener("fitzone:select-plan", handlePlanEvent);
+    return () => {
+      window.removeEventListener("fitzone:select-plan", handlePlanEvent);
+    };
+  }, []);
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);

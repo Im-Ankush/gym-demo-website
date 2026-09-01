@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Check, ShieldCheck, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
@@ -5,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { scrollToSection } from "@/lib/scroll";
 
 export interface PricingProps {
   config?: typeof siteConfig;
@@ -113,6 +116,10 @@ export const Pricing: React.FC<PricingProps> = ({ config = siteConfig }) => {
                     size="md"
                     fullWidth
                     rightIcon={<ArrowRight className="w-4 h-4" />}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(plan.ctaHref, { plan: plan.name });
+                    }}
                   >
                     {plan.ctaText}
                   </Button>

@@ -69,7 +69,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       </>
     );
 
+    const { onClick, id, title, "aria-label": ariaLabel, tabIndex, role } = props;
+
     if (href) {
+      const linkClick = onClick as unknown as React.MouseEventHandler<HTMLAnchorElement> | undefined;
+
       if (isExternal) {
         return (
           <a
@@ -77,6 +81,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             target="_blank"
             rel="noopener noreferrer"
             className={combinedClassName}
+            onClick={linkClick}
+            id={id}
+            title={title}
+            aria-label={ariaLabel}
+            tabIndex={tabIndex}
+            role={role}
           >
             {content}
           </a>
@@ -84,7 +94,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       }
 
       return (
-        <Link href={href} className={combinedClassName}>
+        <Link
+          href={href}
+          className={combinedClassName}
+          onClick={linkClick}
+          id={id}
+          title={title}
+          aria-label={ariaLabel}
+          tabIndex={tabIndex}
+          role={role}
+        >
           {content}
         </Link>
       );

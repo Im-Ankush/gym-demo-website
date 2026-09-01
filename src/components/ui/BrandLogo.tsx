@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Dumbbell, Flame, Trophy, Zap, Activity } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { cn } from "@/lib/utils";
+import { scrollToSection } from "@/lib/scroll";
 
 export interface BrandLogoProps {
   name?: string;
@@ -16,6 +17,7 @@ export interface BrandLogoProps {
   size?: "sm" | "md" | "lg";
   href?: string;
   className?: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({
@@ -29,7 +31,18 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   size = "md",
   href = "#hero",
   className,
+  onClick,
 }) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) {
+      onClick(e);
+    }
+    if (!e.defaultPrevented && href.startsWith("#")) {
+      e.preventDefault();
+      scrollToSection(href);
+    }
+  };
+
   // If an image logo is configured, render it cleanly
   if (logoType === "image" && logoSrc) {
     const imgHeights = {
@@ -41,6 +54,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     return (
       <Link
         href={href}
+        onClick={handleClick}
         className={cn(
           "group flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red rounded-xs select-none",
           className
@@ -95,6 +109,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   return (
     <Link
       href={href}
+      onClick={handleClick}
       className={cn(
         "group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red rounded-xs select-none",
         className
